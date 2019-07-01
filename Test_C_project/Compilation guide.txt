@@ -1,0 +1,19 @@
+Compilation guide:
+Note: env vars: CC, CFLAGS, LDFLAGS (not passed to linker, though, idk how to do that)
+
+PowerPC (32-bit):
+Ensure old dsymutil is in path and that environment variable MACOSX_PPC_DEPLOYMENT_TARGET is set to 10.4
+run command:
+make CC="/opt/gcc/ppc/8/bin/powerpc-apple-darwin10.8.0-gcc" CFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.4 -g -O2" LDFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.4" -j $(sysctl -n hw.ncpu)
+
+PowerPC (64-bit):
+Ensure old dsymutil is in path and that environment variable MACOSX_PPC_DEPLOYMENT_TARGET is set to 10.5
+make CC="/opt/gcc/ppc64/8/bin/powerpc64-apple-darwin10.8.0-gcc" CFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -g -O2" LDFLAGS="-isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5" -j $(sysctl -n hw.ncpu)
+
+Native?:
+Ensure old dysmutil is NOT in path!
+run command (basic):
+make CC=gcc-8 -j $(sysctl -n hw.ncpu)
+
+or run command (best perf that I currently know of):
+make CC=gcc-8 CFLAGS="-O3 -g -march=ivybridge -mtune=ivybridge" -j $(sysctl -n hw.ncpu)
