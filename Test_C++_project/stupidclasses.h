@@ -5,6 +5,12 @@
 #include <iostream>
 
 namespace TestProgram {
+	class ICrappyInterface {
+		public:
+			virtual ~ICrappyInterface() {}
+			virtual void crappy_interface_method() = 0;
+	};
+
 	class BaseClass {
 		protected:
 			int baseNumber;
@@ -31,8 +37,14 @@ namespace TestProgram {
     		}
     };
     
-    class PointedClass {
-    	
+    class PointedClass : public ICrappyInterface {
+    	public:
+			// constructor
+			PointedClass() {
+				std::cout << "Called pointed class constructor" << std::endl;
+			}
+
+			virtual void crappy_interface_method();
     };
     
     class StupidClass : public BaseClass {
@@ -67,7 +79,7 @@ namespace TestProgram {
             void update();
             
             // may have to do this? idk, dodgy
-            void base_thing();
+            virtual void base_thing();
     };
     
     class AlternateExtdClass : public BaseClass {
@@ -76,7 +88,7 @@ namespace TestProgram {
     		
     		~AlternateExtdClass() {}
     		
-    		void base_thing();
+    		virtual void base_thing();
     };
 }
 

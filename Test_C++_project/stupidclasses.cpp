@@ -4,6 +4,8 @@ namespace TestProgram {
 	void StupidClass::update() {
 		if (this->pointedClass != NULL) {
 			std::cout << "pointed class ain't null" << std::endl;
+
+			this->pointedClass->crappy_interface_method();
 		}
 	}
 	
@@ -13,5 +15,9 @@ namespace TestProgram {
 	
 	void AlternateExtdClass::base_thing() {
 		std::cout << "Alternate base thing" << std::endl;
+	}
+
+	void PointedClass::crappy_interface_method() {
+		std::cout << "Crappy interface thing does work" << std::endl;
 	}
 }
