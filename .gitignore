@@ -4,3 +4,5 @@
 */Dumped_trees_etc/*
 .vscode/*
 *.code-workspace
+*.o
+*.exe

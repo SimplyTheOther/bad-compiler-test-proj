@@ -1,0 +1,11 @@
+Running guide:
+
+OS X:
+Can double click on file, probably also another way
+
+Cygwin:
+Inside cygwin terminal, run command:
+./test.exe 
+or whatever
+
+Will not work by double-click or in native terminal.

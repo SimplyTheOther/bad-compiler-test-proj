@@ -18,4 +18,6 @@ make CXX=g++-8 -j $(sysctl -n hw.ncpu)
 or run command (best perf that I currently know of):
 make CXX=g++-8 CXXFLAGS="-O3 -g -march=ivybridge -mtune=ivybridge" -j $(sysctl -n hw.ncpu)
 
-
+Cygwin:
+run command:
+make CXX=g++-9 CXXFLAGS="-O3 -g -march=native -mtune=native" -j 2
