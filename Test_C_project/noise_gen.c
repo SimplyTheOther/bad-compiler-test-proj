@@ -151,15 +151,21 @@ float evaluate(float x, float y) {
         (int)(inSum + yins) << 2 |
         (int)(inSum + xins) << 4;
 
-    printf("hash: {hash}, bounds: {lookup2D.Length}");
+	int lookup2DLength = sizeof(lookup2D) / sizeof(struct Contribution2*);
+    fprintf("hash: %d, bounds: %d", hash, lookup2DLength);
 
     if (hash < 0 || hash > 63) {
-        printf("Hash would be out of bounds, extra info incoming:");
-        printf("x: {x}, y: {y}, stretchOffset: {stretchOffset}, xs: {xs}, ys: {ys}");
-        printf("xsb: {xsb}, ysb: {ysb}, squishOffset: {squishOffset}");
-        printf("dx0: {dx0}, dy0: {dy0}, xins: {xins}, yins: {yins}, inSum: {inSum}");
-        printf("hash comp 1: {(int)(xins -yins + 1)}, 2: {(int)(inSum) << 1}");
-        printf("3: {(int)(inSum + yins) << 2}, 4: {(int)(inSum + xins) << 4}, hash is bitwise or");
+    	printf("Hash would be out of bounds, extra info incoming:");
+        printf(stderr, "Hash would be out of bounds, extra info incoming:");
+        printf(stderr, "x: %f, y: %f, stretchOffset: %f, xs: %f, ys: %f", x, y, stretchOffset, xs, ys);
+        printf(stderr, "xsb: %d, ysb: %d, squishOffset: %f", xsb, ysb, squishOffset);
+        printf(stderr, "dx0: %f, dy0: %f, xins: %f, yins: %f, inSum: %f", dx0, dy0, xins, yins, inSum);
+        int hashComp1 = (int)(xins - yins + 1);
+        int hashComp2 = (int)(inSum) << 1;
+        int hashComp3 = (int)(inSum + yins) << 2;
+        int hashComp4 = (int)(inSum + xins) << 4;
+        printf(stderr, "hash comp 1: %d, 2: %d", hashComp1, hashComp2);
+        printf(stderr, "3: %d, 4: %d, hash is bitwise or", hashComp3, hashComp4);
     }
 
     // this seems to be the issue TODO: remove when fixed
