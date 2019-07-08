@@ -29,33 +29,33 @@ namespace TestProgram {
 	
 	class DumbClass {
 		public:
-    		short dumbNo;
+			short dumbNo;
     		
-    		// constructor
-    		DumbClass(short number) {
-    			dumbNo = number;
-    		}
-    };
-    
-    class PointedClass : public ICrappyInterface {
-    	public:
+			// constructor
+			DumbClass(short number) {
+				dumbNo = number;
+			}
+	};
+	
+	class PointedClass : public ICrappyInterface {
+		public:
 			// constructor
 			PointedClass() {
 				std::cout << "Called pointed class constructor" << std::endl;
 			}
-
+			
 			virtual void crappy_interface_method();
     };
-    
-    class StupidClass : public BaseClass {
-    	std::vector<TestProgram::DumbClass> dumbClasses;
-    	// something with a pointer
-    	TestProgram::PointedClass* pointedClass;
-    
-        public:
-        	// constructor
-            StupidClass() {
-            	baseNumber = 3;
+	
+	class StupidClass : public BaseClass {
+		std::vector<TestProgram::DumbClass> dumbClasses;
+		// something with a pointer
+		TestProgram::PointedClass* pointedClass;
+		
+		public:
+			// constructor
+			StupidClass() {
+				baseNumber = 3;
             	
             	TestProgram::DumbClass dC1(1);
             	
@@ -65,31 +65,30 @@ namespace TestProgram {
             	dumbClasses.push_back(dC1);
             	
             	pointedClass = new TestProgram::PointedClass();
-            }
+			}
             
             // destructor
-            ~StupidClass() {
-            	delete pointedClass;
+			~StupidClass() {
+				delete pointedClass;
             	
             	// don't need to delete vector because memory is automatically deleted
             	// the issue with pointers is that they are deleted but the memory that 
             	// they point to is not deleted!!!
             }
-            
-            void update();
+			void update();
             
             // may have to do this? idk, dodgy
-            virtual void base_thing();
-    };
-    
-    class AlternateExtdClass : public BaseClass {
-    	public:
-    		AlternateExtdClass() {}
+			virtual void base_thing();
+	};
+	
+	class AlternateExtdClass : public BaseClass {
+		public:
+			AlternateExtdClass() {}
     		
-    		~AlternateExtdClass() {}
+			~AlternateExtdClass() {}
     		
-    		virtual void base_thing();
-    };
+			virtual void base_thing();
+	};
 }
 
 #endif

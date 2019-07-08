@@ -1,23 +1,30 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "functions.h"
 #include "noise_gen.h"
 
 void test_noise_gen() {
-	static_construct();
-	setup_noise_lots((long)(80117114112108101F * ((double)rand() / (double)RAND_MAX)), 
-            1, 20, 0.45F, 1);
+    printf("Started noise gen! \n");
+    
+	static_construct(); // completes, apparently
+	setup_noise_lots((long)(80117114112108101.0F * ((double)rand() / (double)RAND_MAX)), 
+            1, 20, 0.45F, 1); // completes, apparently
+
+    // debug
+    debug_check_all_lookupPairs();
+    debug_check_all_next_chains();
             
     float whiteCutoff = -0.2F;
     int cumulativeSectionsDeployed = 0;
     
     for (int j = 0; j < 89; j++) {
     	for (int i = 0; i < 16; i++) {
-    		if (evaluate_white_cutoff(cumulativeSectionsDeployed - 1, i, whiteCutoff) == 1) {
-    			printf("Face is added");
+    		if (evaluate_white_cutoff((float)(cumulativeSectionsDeployed - 1), (float)i, whiteCutoff) == 1) {
+    			printf("Face is added \n");
     		}
     	}
     	
-    	cumulativeSectionsDeployed++
+    	cumulativeSectionsDeployed++;
     }
     
     int extraReps = 200;
@@ -25,8 +32,8 @@ void test_noise_gen() {
     
     while (counter < extraReps) {
     	for (int i = 0; i < 16; i++) {
-    		if (evaluate_white_cutoff(cumulativeSectionsDeployed - 1, i, whiteCutoff) == 1) {
-    			printf("Face is added");
+    		if (evaluate_white_cutoff((float)(cumulativeSectionsDeployed - 1), (float)i, whiteCutoff) == 1) {
+    			printf("Face is added \n");
     		}
     	}
     	
@@ -34,7 +41,7 @@ void test_noise_gen() {
     	cumulativeSectionsDeployed++;
     }
     
-    printf("Process complete, check error log (where-ever that is).");
+    printf("Process complete, check error log (where-ever that is). \n");
     delete_fucking_everything();
 }
 
@@ -46,7 +53,7 @@ int main() {
 
     printf("Hello, world!\n");
     
-    printf("%d", c);
+    printf("%d \n", c);
 
     test_noise_gen();
     

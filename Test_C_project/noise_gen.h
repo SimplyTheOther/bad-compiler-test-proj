@@ -11,33 +11,25 @@ struct Contribution2 {
 	struct Contribution2* next;	
 };
 
-const float STRETCH_2D = -0.211324865405187F; //(1/Math.sqrt(2+1)-1)/2;
-const float SQUISH_2D = 0.366025403784439F; //(Math.sqrt(2+1)-1)/2;
-const float NORM_2D = 1.0F / 47.0F;
-
-float inverseFeatureSize;
-int octaves;
-float persistence;
-float percentage;
-
-uint8_t perm[256]; 
-uint8_t perm2D[256]; 
-
-float gradients2D[] = {
-             5,  2,    2,  5,
-            -5,  2,   -2,  5,
-             5, -2,    2, -5,
-            -5, -2,   -2, -5,
+struct Contribution2List {
+	struct Contribution2* elem;
+	struct Contribution2List* next;
 };
-
-struct Contribution2* lookup2D[64];
 
 // methods
 void static_construct(void);
 
-inline int fast_floor_f(float x);
+static inline int fast_floor_f(float x) {
+    int xi = (int)x;
 
-inline int fast_floor_d(double x);
+    return x < xi ? xi - 1 : xi;
+}
+
+static inline int fast_floor_d(double x) {
+    int xi = (int)x;
+
+    return x < xi ? xi - 1 : xi;
+}
 
 void setup_noise_seed(long seed);
 
@@ -54,6 +46,12 @@ float evaluate(float x, float y);
 
 void construct_contribution2(struct Contribution2* pointer, float multiplier, int xsb, int ysb);
 
+void debug_check_all_lookupPairs(void);
+
 void delete_fucking_everything(void);
+
+void debug_check_all_next_chains(void);
+
+void init_array_to_null(struct Contribution2* array[], int length);
 
 #endif
