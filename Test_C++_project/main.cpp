@@ -1,6 +1,6 @@
-#include <iostream>
 #include "functions.h"
 #include "stupidclasses.h"
+#include <iostream>
 
 void test_bitwise_ops() {
     int KIND_CYMBAL = 1;
@@ -37,7 +37,7 @@ void test_bitwise_ops() {
 }
 
 void stupid_math_tests() {
-	int a = 3;
+    int a = 3;
     int b = 4;
 
     int c = TestProgram::Math::sum(a, b);
@@ -45,7 +45,7 @@ void stupid_math_tests() {
     std::cout << "Hello, world!" << std::endl;
 
     std::cout << c << std::endl;
-    
+
     int d = TestProgram::Math::generic_sum(a, b);
 
     std::cout << "Next time trying a generic method:" << std::endl;
@@ -58,46 +58,46 @@ void stupid_math_tests() {
 }
 
 void call_base_thing_on_class(TestProgram::BaseClass* baseClass) {
-	baseClass->base_thing();
+    baseClass->base_thing();
 }
 
 void oop_tests() {
-	// creates stack instance of StupidClass
-	TestProgram::StupidClass stupidClass;
-	// creates stack instance of string
-	std::string input;
-	
-	std::cout << "Enter Pause to stop." << std::endl;
-	
-	do {
-		stupidClass.update();
-		
-		std::cin >> input;
-	} while (input != "Pause");
-	
-	std::cout << "Program done." << std::endl;
-	
-	// polymorphism test
-	TestProgram::StupidClass* stupidClassP = new TestProgram::StupidClass();
-	
-	std::cout << "About to call base thing on stupidclass" << std::endl;
-	call_base_thing_on_class(stupidClassP);
-	
-	TestProgram::AlternateExtdClass* altClass = new TestProgram::AlternateExtdClass();
-	
-	std::cout << "About to call base thing on alt stupidclass" << std::endl;
-	call_base_thing_on_class(altClass);
-	
-	delete stupidClassP;
-	delete altClass;
+    // creates stack instance of StupidClass
+    TestProgram::StupidClass stupidClass;
+    // creates stack instance of string
+    std::string input;
+
+    std::cout << "Enter Pause to stop." << std::endl;
+
+    do {
+        stupidClass.update();
+
+        std::cin >> input;
+    } while (input != "Pause");
+
+    std::cout << "Program done." << std::endl;
+
+    // polymorphism test
+    TestProgram::StupidClass* stupidClassP = new TestProgram::StupidClass();
+
+    std::cout << "About to call base thing on stupidclass" << std::endl;
+    call_base_thing_on_class(stupidClassP);
+
+    TestProgram::AlternateExtdClass* altClass = new TestProgram::AlternateExtdClass();
+
+    std::cout << "About to call base thing on alt stupidclass" << std::endl;
+    call_base_thing_on_class(altClass);
+
+    delete stupidClassP;
+    delete altClass;
 }
 
 int main() {
     stupid_math_tests();
 
     test_bitwise_ops();
-    
+
     oop_tests();
-    
+
     return 0;
 }

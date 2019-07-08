@@ -4,16 +4,16 @@
 #include <stdint.h>
 
 struct Contribution2 {
-	float dx;
-	float dy;
-	int xsb;
-	int ysb;
-	struct Contribution2* next;	
+    float dx;
+    float dy;
+    int xsb;
+    int ysb;
+    struct Contribution2* next;
 };
 
 struct Contribution2List {
-	struct Contribution2* elem;
-	struct Contribution2List* next;
+    struct Contribution2* elem;
+    struct Contribution2List* next;
 };
 
 // methods
@@ -35,9 +35,8 @@ void setup_noise_seed(long seed);
 
 void setup_noise_time(void);
 
-void setup_noise_lots(long seed, float featureSize, int octaves, float persistence, 
-	float percentage);
-	
+void setup_noise_lots(long seed, float featureSize, int octaves, float persistence, float percentage);
+
 int evaluate_white_cutoff(float x, float y, float whiteCutoff);
 
 float evaluate_2d_config(float x, float y);

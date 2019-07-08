@@ -33,26 +33,26 @@ void init_array_to_null(struct Contribution2* array[], int length) {
 }
 
 void construct_contribution2(struct Contribution2* pointer, float multiplier, int xsb, int ysb) {
-	pointer->dx = -(float)xsb - (multiplier * SQUISH_2D);
-	pointer->dy = -(float)ysb - (multiplier * SQUISH_2D);
-	pointer->xsb = xsb;
-	pointer->ysb = ysb;
+    pointer->dx = -(float)xsb - (multiplier * SQUISH_2D);
+    pointer->dy = -(float)ysb - (multiplier * SQUISH_2D);
+    pointer->xsb = xsb;
+    pointer->ysb = ysb;
     pointer->next = NULL; // should never be assigned before construction
     //printf("Seem to have successfully called construct_contribution2 \n");
 }
 
 void static_construct() {
-	int base2D_1[] = { 1, 1, 0, 1, 0, 1, 0, 0, 0 };
-	int base2D_2[] = { 1, 1, 0, 1, 0, 1, 2, 1, 1 };
-	/* int base2D[9][9] = { { 1, 1, 0, 1, 0, 1, 0, 0, 0 }, 
+    int base2D_1[] = { 1, 1, 0, 1, 0, 1, 0, 0, 0 };
+    int base2D_2[] = { 1, 1, 0, 1, 0, 1, 2, 1, 1 };
+    /* int base2D[9][9] = { { 1, 1, 0, 1, 0, 1, 0, 0, 0 }, 
                         { 1, 1, 0, 1, 0, 1, 2, 1, 1 } };*/
 	
-	int p2D[] = { 0, 0, 1, -1, 0, 0, -1, 1, 0, 2, 1, 1, 1, 2, 2, 0, 1, 2, 0, 2, 1, 0, 0, 0 };
-	int lookupPairs2D[] = { 0, 1, 1, 0, 4, 1, 17, 0, 20, 2, 21, 2, 22, 5, 23, 5, 26, 4, 39, 3, 42, 4, 
+    int p2D[] = { 0, 0, 1, -1, 0, 0, -1, 1, 0, 2, 1, 1, 1, 2, 2, 0, 1, 2, 0, 2, 1, 0, 0, 0 };
+    int lookupPairs2D[] = { 0, 1, 1, 0, 4, 1, 17, 0, 20, 2, 21, 2, 22, 5, 23, 5, 26, 4, 39, 3, 42, 4, 
                             43, 3 };
 	
-	int lengthOfP2D = sizeof(p2D) / sizeof(p2D[0]);
-	struct Contribution2* contributions2D[lengthOfP2D / 4];
+    int lengthOfP2D = sizeof(p2D) / sizeof(p2D[0]);
+    struct Contribution2* contributions2D[lengthOfP2D / 4];
     init_array_to_null(contributions2D, lengthOfP2D / 4);
 
     printf("real length of P2D: 24, calc length: %d \n", lengthOfP2D);
@@ -74,12 +74,12 @@ void static_construct() {
         struct Contribution2* previous = NULL;
         struct Contribution2* current = NULL;
 
-		int lengthOfBaseSet = sizeof(baseSet) / sizeof(baseSet[0]);
+        int lengthOfBaseSet = sizeof(baseSet) / sizeof(baseSet[0]);
         printf("Real length of baseSet: 9, calc length: %d \n", lengthOfBaseSet);
 
         for (int k = 0; k < lengthOfBaseSet; k += 3) {
             current = malloc(sizeof(struct Contribution2));//new Contribution2(baseSet[k], baseSet[k + 1], baseSet[k + 2]);
-			construct_contribution2(current, (float)baseSet[k], baseSet[k + 1], baseSet[k + 2]);
+            construct_contribution2(current, (float)baseSet[k], baseSet[k + 1], baseSet[k + 2]);
 
             printf("Size of contribution2: %d \n", sizeof(struct Contribution2));
 
@@ -126,7 +126,7 @@ void static_construct() {
         current->next = next;
     }
 
-	int lengthOfLookupPairs2D = sizeof(lookupPairs2D) / sizeof(int);
+    int lengthOfLookupPairs2D = sizeof(lookupPairs2D) / sizeof(int);
     printf("Real length of lookup pairs 2d: 24, calc length: %d \n", lengthOfLookupPairs2D);
     for (int i = 0; i < lengthOfLookupPairs2D; i += 2) {
         lookup2D[lookupPairs2D[i]] = contributions2D[lookupPairs2D[i + 1]];
