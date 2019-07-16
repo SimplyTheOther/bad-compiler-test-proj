@@ -10,6 +10,8 @@ main.o : functions.h noise_gen.h
 functions.o : functions.h
 noise_gen.o : noise_gen.h
 
+# used for "make clean" - deletes generated files
 .PHONY : clean
 clean :
-	rm edit $(objects)
+	rm test $(objects)
+	rm out.log error.log

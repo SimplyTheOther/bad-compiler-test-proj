@@ -10,6 +10,7 @@ main.o : functions.h stupidclasses.h
 functions.o : functions.h
 stupidclasses.o : stupidclasses.h
 
+# used to delete generated files with "make clean"
 .PHONY : clean
 clean :
 	rm test $(objects)

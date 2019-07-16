@@ -92,7 +92,7 @@ void static_construct() {
             current = malloc(sizeof(struct Contribution2)); //new Contribution2(baseSet[k], baseSet[k + 1], baseSet[k + 2]);
             construct_contribution2(current, (float)baseSet[k], baseSet[k + 1], baseSet[k + 2]);
 
-            printf("Size of contribution2: %d \n", sizeof(struct Contribution2));
+            printf("Size of contribution2: %lu \n", sizeof(struct Contribution2));
 
             if (previous == NULL) { // every 4th iteration of i
                 contributions2D[i / 4] = current;
@@ -107,15 +107,15 @@ void static_construct() {
                 if (previous->next != NULL) {
                     printf("previous->next != null! Probably an issue!!! \n");
 
-                    printf("previous->next: addr: %d, dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n",
-                           &(previous->next),
+                    printf("previous->next: addr: %p, dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n",
+                           (void*)&(previous->next),
                            previous->next->dx,
                            previous->next->dy,
                            previous->next->xsb,
                            previous->next->ysb,
                            previous->next->next != NULL ? 1 : 0);
-                    printf("compared to current: addr: %d, dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n",
-                           &current,
+                    printf("compared to current: addr: %p, dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n",
+                           (void*)&current,
                            current->dx,
                            current->dy,
                            current->xsb,
@@ -207,7 +207,7 @@ void debug_check_all_next_chains() {
             int ysb = pointer->ysb;
             struct Contribution2* next = pointer->next;
 
-            printf("dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: \n", dx, dy, xsb, ysb, (next == NULL ? 0 : 1));
+            printf("dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n", dx, dy, xsb, ysb, (next == NULL ? 0 : 1));
 
             pointer = next;
         }
