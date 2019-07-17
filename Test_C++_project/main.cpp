@@ -6,7 +6,7 @@ void test_bitwise_ops() {
     int KIND_CYMBAL = 1;
     int KIND_NOTE = 2;
     int KIND_SLANTED_DIAMOND = 10;
-    int KIND_TRIANGLE = 20;
+    //int KIND_TRIANGLE = 20;
     int KIND_EFFECT_CYMBAL = 40;
 
     int KIND_OPEN = 4;
