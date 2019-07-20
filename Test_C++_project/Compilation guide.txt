@@ -16,7 +16,7 @@ run command (basic):
 gmake CXX=g++-9 -j $(sysctl -n hw.ncpu)
 
 or run command (best perf that I currently know of):
-gmake CXX=g++-9 CXXFLAGS="-O3 -g -march=ivybridge -mtune=ivybridge -Wall -flto -fuse-linker-plugin" -j $(sysctl -n hw.ncpu)
+gmake CXX=g++-9 CXXFLAGS="-O3 -g -march=native -mtune=native -Wall -flto -fuse-linker-plugin" -j $(sysctl -n hw.ncpu)
 
 Cygwin:
 run command:

@@ -50,17 +50,18 @@ void construct_contribution2(struct Contribution2* pointer, float multiplier, in
     pointer->xsb = xsb;
     pointer->ysb = ysb;
     pointer->next = NULL; // should never be assigned before construction
-    //printf("Seem to have successfully called construct_contribution2 \n");
+    // printf("Seem to have successfully called construct_contribution2 \n");
 }
 
 void static_construct() {
     int base2D_1[] = { 1, 1, 0, 1, 0, 1, 0, 0, 0 };
     int base2D_2[] = { 1, 1, 0, 1, 0, 1, 2, 1, 1 };
-    /* int base2D[9][9] = { { 1, 1, 0, 1, 0, 1, 0, 0, 0 }, 
+    /* int base2D[9][9] = { { 1, 1, 0, 1, 0, 1, 0, 0, 0 },
                         { 1, 1, 0, 1, 0, 1, 2, 1, 1 } };*/
 
     int p2D[] = { 0, 0, 1, -1, 0, 0, -1, 1, 0, 2, 1, 1, 1, 2, 2, 0, 1, 2, 0, 2, 1, 0, 0, 0 };
-    int lookupPairs2D[] = { 0, 1, 1, 0, 4, 1, 17, 0, 20, 2, 21, 2, 22, 5, 23, 5, 26, 4, 39, 3, 42, 4, 43, 3 };
+    int lookupPairs2D[]
+      = { 0, 1, 1, 0, 4, 1, 17, 0, 20, 2, 21, 2, 22, 5, 23, 5, 26, 4, 39, 3, 42, 4, 43, 3 };
 
     int lengthOfP2D = sizeof(p2D) / sizeof(p2D[0]);
     struct Contribution2* contributions2D[lengthOfP2D / 4];
@@ -81,7 +82,7 @@ void static_construct() {
                 baseSet[i] = base2D_2[i];
             }
         }
-        //baseSet = (p2D[i] == 0 ? base2D_1 : base2D_2);
+        // baseSet = (p2D[i] == 0 ? base2D_1 : base2D_2);
         struct Contribution2* previous = NULL;
         struct Contribution2* current = NULL;
 
@@ -89,7 +90,8 @@ void static_construct() {
         printf("Real length of baseSet: 9, calc length: %d \n", lengthOfBaseSet);
 
         for (int k = 0; k < lengthOfBaseSet; k += 3) {
-            current = malloc(sizeof(struct Contribution2)); //new Contribution2(baseSet[k], baseSet[k + 1], baseSet[k + 2]);
+            current = malloc(sizeof(struct Contribution2)); // new Contribution2(baseSet[k], baseSet[k
+                                                            // + 1], baseSet[k + 2]);
             construct_contribution2(current, (float)baseSet[k], baseSet[k + 1], baseSet[k + 2]);
 
             printf("Size of contribution2: %lu \n", sizeof(struct Contribution2));
@@ -98,47 +100,41 @@ void static_construct() {
                 contributions2D[i / 4] = current;
 
                 printf("contributions2D as initially genned: %f, %f, %d, %d \n",
-                       contributions2D[i / 4]->dx,
-                       contributions2D[i / 4]->dy,
-                       contributions2D[i / 4]->xsb,
-                       contributions2D[i / 4]->ysb);
+                  contributions2D[i / 4]->dx, contributions2D[i / 4]->dy, contributions2D[i / 4]->xsb,
+                  contributions2D[i / 4]->ysb);
                 printf("previous == null for i=%d, k=%d \n", i, k);
             } else {
                 if (previous->next != NULL) {
                     printf("previous->next != null! Probably an issue!!! \n");
 
-                    printf("previous->next: addr: %p, dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n",
-                           (void*)&(previous->next),
-                           previous->next->dx,
-                           previous->next->dy,
-                           previous->next->xsb,
-                           previous->next->ysb,
-                           previous->next->next != NULL ? 1 : 0);
-                    printf("compared to current: addr: %p, dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n",
-                           (void*)&current,
-                           current->dx,
-                           current->dy,
-                           current->xsb,
-                           current->ysb,
-                           current->next != NULL ? 1 : 0);
+                    printf("previous->next: addr: %p, dx: %f, dy: %f, xsb: %d, ysb: %d, next != "
+                           "null: %d \n",
+                      (void*)&(previous->next), previous->next->dx, previous->next->dy,
+                      previous->next->xsb, previous->next->ysb, previous->next->next != NULL ? 1 : 0);
+                    printf("compared to current: addr: %p, dx: %f, dy: %f, xsb: %d, ysb: %d, next != "
+                           "null: %d \n",
+                      (void*)&current, current->dx, current->dy, current->xsb, current->ysb,
+                      current->next != NULL ? 1 : 0);
                 }
 
                 previous->next = current;
 
-                //printf("As previous != null, previous->next=current \n");
+                // printf("As previous != null, previous->next=current \n");
             }
 
             previous = current;
         }
 
-        struct Contribution2* next = malloc(sizeof(struct Contribution2)); //new Contribution2(p2D[i + 1], p2D[i + 2], p2D[i + 3]);
+        struct Contribution2* next = malloc(
+          sizeof(struct Contribution2)); // new Contribution2(p2D[i + 1], p2D[i + 2], p2D[i + 3]);
 
         // debug
         if (next == NULL)
             printf("Next is null \n");
 
         construct_contribution2(next, (float)p2D[i + 1], p2D[i + 2], p2D[i + 3]);
-        printf("Did the weird init thing with values: %f, %d, %d \n", (float)p2D[i + 1], p2D[i + 2], p2D[i + 3]);
+        printf("Did the weird init thing with values: %f, %d, %d \n", (float)p2D[i + 1], p2D[i + 2],
+          p2D[i + 3]);
 
         if (current == NULL)
             printf("Current is null \n");
@@ -155,7 +151,7 @@ void static_construct() {
     nodesToDelete = malloc(sizeof(struct Contribution2List));
     int contributions2DLength = lengthOfP2D / 4;
     struct Contribution2List* nodeToDeleteH = nodesToDelete;
-    //struct Contribution2List* temp = NULL;
+    // struct Contribution2List* temp = NULL;
     for (int i = 0; i < contributions2DLength - 1; i++) {
         nodeToDeleteH->elem = contributions2D[i];
 
@@ -174,7 +170,7 @@ void debug_check_all_lookupPairs() {
         struct Contribution2* pointer = lookup2D[i];
 
         if (pointer == NULL) {
-            //fprintf(stderr, "POINTER NULL FOR LOOKUP2d[%d]!!! \n", i);
+            // fprintf(stderr, "POINTER NULL FOR LOOKUP2d[%d]!!! \n", i);
             printf("POINTER NULL FOR LOOKUP2d[%d]!!! \n", i);
         } else {
             float dx = pointer->dx;
@@ -189,7 +185,8 @@ void debug_check_all_lookupPairs() {
                 nextIsNull = 1;
             }
 
-            printf("dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n", dx, dy, xsb, ysb, nextIsNull);
+            printf(
+              "dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n", dx, dy, xsb, ysb, nextIsNull);
         }
     }
 }
@@ -207,13 +204,14 @@ void debug_check_all_next_chains() {
             int ysb = pointer->ysb;
             struct Contribution2* next = pointer->next;
 
-            printf("dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n", dx, dy, xsb, ysb, (next == NULL ? 0 : 1));
+            printf("dx: %f, dy: %f, xsb: %d, ysb: %d, next != null: %d \n", dx, dy, xsb, ysb,
+              (next == NULL ? 0 : 1));
 
             pointer = next;
         }
 
         if (pointer == NULL) {
-            //fprintf(stderr, "POINTER NULL FOR LOOKUP2d[%d]!!! next chain \n", i);
+            // fprintf(stderr, "POINTER NULL FOR LOOKUP2d[%d]!!! next chain \n", i);
             printf("POINTER NULL FOR LOOKUP2d[%d]!!! next chain \n", i);
         }
     }
@@ -248,7 +246,8 @@ void setup_noise_seed(long seed) {
 
 }*/
 
-void setup_noise_lots(long seed, float pFeatureSize, int pOctaves, float pPersistence, float pPercentage) {
+void setup_noise_lots(long seed, float pFeatureSize, int pOctaves, float pPersistence, 
+  float pPercentage) {
     setup_noise_seed(seed);
 
     inverseFeatureSize = 1 / pFeatureSize;
@@ -268,7 +267,8 @@ float evaluate_2d_config(float x, float y) {
     float maxAmplitude = 0;
 
     for (int octave = 0; octave < octaves; octave++) {
-        colourSum += evaluate(x * inverseFeatureSize * frequency, y * inverseFeatureSize * frequency) * amplitude;
+        colourSum += evaluate(x * inverseFeatureSize * frequency, y * inverseFeatureSize * frequency)
+                     * amplitude;
 
         maxAmplitude += amplitude;
         amplitude *= persistence;
@@ -297,11 +297,8 @@ float evaluate(float x, float y) {
 
     float inSum = xins + yins;
 
-    int hash =
-      (int)(xins - yins + 1) |
-      (int)(inSum) << 1 |
-      (int)(inSum + yins) << 2 |
-      (int)(inSum + xins) << 4;
+    int hash = (int)(xins - yins + 1) | (int)(inSum) << 1 | (int)(inSum + yins) << 2
+               | (int)(inSum + xins) << 4;
 
     int lookup2DLength = sizeof(lookup2D) / sizeof(struct Contribution2*);
     printf("hash: %d, bounds: %d \n", hash, lookup2DLength);
@@ -309,9 +306,11 @@ float evaluate(float x, float y) {
     if (hash < 0 || hash > 63) {
         printf("Hash would be out of bounds, extra info incoming: \n");
         fprintf(stderr, "Hash would be out of bounds, extra info incoming: \n");
-        fprintf(stderr, "x: %f, y: %f, stretchOffset: %f, xs: %f, ys: %f \n", x, y, stretchOffset, xs, ys);
+        fprintf(stderr, "x: %f, y: %f, stretchOffset: %f, xs: %f, ys: %f \n", x, y, stretchOffset, xs, 
+          ys);
         fprintf(stderr, "xsb: %d, ysb: %d, squishOffset: %f \n", xsb, ysb, squishOffset);
-        fprintf(stderr, "dx0: %f, dy0: %f, xins: %f, yins: %f, inSum: %f \n", dx0, dy0, xins, yins, inSum);
+        fprintf(stderr, "dx0: %f, dy0: %f, xins: %f, yins: %f, inSum: %f \n", dx0, dy0, xins, yins, 
+          inSum);
         int hashComp1 = (int)(xins - yins + 1);
         int hashComp2 = (int)(inSum) << 1;
         int hashComp3 = (int)(inSum + yins) << 2;
@@ -335,23 +334,24 @@ float evaluate(float x, float y) {
         if (c == NULL) {
             printf("c is null, even though while says it isn't \n");
         } else {
-            //printf("c isn't null, as while says \n");
+            // printf("c isn't null, as while says \n");
 
-            //printf("c's address: %d \n", &c);
+            // printf("c's address: %d \n", &c);
 
-            //printf("c->dy: %f \n", c->dy); -> also gives segfault - seems any c->anything
-            //printf("c->xsb: %d \n", c->xsb); -> also gives segfault
-            //printf("c->next address: %d \n", &(c->next)); // -> does not give segfault - address of 28
+            // printf("c->dy: %f \n", c->dy); -> also gives segfault - seems any c->anything
+            // printf("c->xsb: %d \n", c->xsb); -> also gives segfault
+            // printf("c->next address: %d \n", &(c->next)); // -> does not give segfault - address of
+            // 28
 
-            //printf("Another try at dx: %f \n", (*c).dx);
+            // printf("Another try at dx: %f \n", (*c).dx);
         }
-        //printf("c->dx = %f \n", c->dx); // this line: c->dx
+        // printf("c->dx = %f \n", c->dx); // this line: c->dx
         float dx = dx0 + c->dx;
-        //printf("dx = %f \n", dx);
+        // printf("dx = %f \n", dx);
         float dy = dy0 + c->dy;
-        //printf("dy = %f \n", dy);
+        // printf("dy = %f \n", dy);
         float attn = 2 - dx * dx - dy * dy;
-        //printf("attn = %f \n", attn);
+        // printf("attn = %f \n", attn);
 
         printf("All dx, dy, attn are ok \n");
 
@@ -360,11 +360,12 @@ float evaluate(float x, float y) {
             int px = xsb + c->xsb;
             int py = ysb + c->ysb;
 
-            //printf("perm bounds: {perm.Length}, perm2D bounds: {perm2D.Length}. perm index attempt: {px & 0xFF}");
-            //printf("perm2D index attempt: {(perm[px & 0xFF] + py) & 0xFF}");
+            // printf("perm bounds: {perm.Length}, perm2D bounds: {perm2D.Length}. perm index attempt:
+            // {px & 0xFF}"); printf("perm2D index attempt: {(perm[px & 0xFF] + py) & 0xFF}");
 
             uint8_t i = perm2D[(perm[px & 0xFF] + py) & 0xFF];
-            //printf("gradients2D bounds: {gradients2D.Length}, attempted gradients2D indices: {i}, {i + 1}");
+            // printf("gradients2D bounds: {gradients2D.Length}, attempted gradients2D indices: {i},
+            // {i + 1}");
             float valuePart = gradients2D[i] * dx + gradients2D[i + 1] * dy;
 
             attn *= attn;
@@ -375,7 +376,7 @@ float evaluate(float x, float y) {
         printf("c = c->next \n");
     }
 
-    //printf("Evaluate call returning");
+    // printf("Evaluate call returning");
     return value * NORM_2D;
 }
 

@@ -5,12 +5,17 @@
 #include <vector>
 
 namespace TestProgram {
+    // pure abstract base class?
     class ICrappyInterface {
       public:
+        // abstract destructor
         virtual ~ICrappyInterface() {}
+
+        // pure abstract method
         virtual void crappy_interface_method() = 0;
     };
 
+    // base class that is not abstract
     class BaseClass {
       protected:
         int baseNumber;
@@ -27,16 +32,18 @@ namespace TestProgram {
         }
     };
 
+    // simple class
     class DumbClass {
       public:
         short dumbNo;
 
-        // constructor
+        // constructor (member assignment) - apparently the "non-preferred way"
         DumbClass(short number) {
             dumbNo = number;
         }
     };
 
+    // class extending pure abstract base class
     class PointedClass : public ICrappyInterface {
       public:
         // constructor
@@ -75,12 +82,15 @@ namespace TestProgram {
             // the issue with pointers is that they are deleted but the memory that
             // they point to is not deleted!!!
         }
+
         void update();
 
         // may have to do this? idk, dodgy
+        // maybe it's only virtual if the enclosing superclass only has to be able to have it overriden
         virtual void base_thing();
     };
 
+    // alternate extension of base class for polymorphism
     class AlternateExtdClass : public BaseClass {
       public:
         AlternateExtdClass() {}
@@ -88,6 +98,19 @@ namespace TestProgram {
         ~AlternateExtdClass() {}
 
         virtual void base_thing();
+    };
+
+    // for demonstrating member initialisation list
+    class MemberInitListClass {
+        int randomNo;
+        bool randomBool;
+        DumbClass& dumbClassRef;
+
+      public:
+        /* member initialisation list constructor - required for references and encouraged for other
+         * member variables */
+        MemberInitListClass(int randomNum, int randomBool, DumbClass& dumbClassRef) :
+          randomNo(randomNum), randomBool(randomBool), dumbClassRef(dumbClassRef) {}
     };
 }
 

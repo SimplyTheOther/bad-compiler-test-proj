@@ -7,13 +7,13 @@ namespace TestProgram {
       public:
         static int sum(int a, int b);
 
-        //template <typename T> static T generic_sum(T a, T b);
+        // template <typename T> static T generic_sum(T a, T b);
         template<typename T>
         static T generic_sum(T a, T b) {
             return a + b;
         }
     };
 }
-//int sum(int a, int b);
+// int sum(int a, int b);
 
 #endif

@@ -7,11 +7,8 @@ void test_noise_gen() {
     printf("Started noise gen! \n");
 
     static_construct(); // completes, apparently
-    setup_noise_lots((long)(80117114112108101.0F * ((double)rand() / (double)RAND_MAX)),
-                     1,
-                     20,
-                     0.45F,
-                     1); // completes, apparently
+    setup_noise_lots((long)(80117114112108101.0F * ((double)rand() / (double)RAND_MAX)), 1, 20, 0.45F,
+      1); // completes, apparently
 
     // debug
     debug_check_all_lookupPairs();
@@ -22,7 +19,8 @@ void test_noise_gen() {
 
     for (int j = 0; j < 89; j++) {
         for (int i = 0; i < 16; i++) {
-            if (evaluate_white_cutoff((float)(cumulativeSectionsDeployed - 1), (float)i, whiteCutoff) == 1) {
+            if (evaluate_white_cutoff((float)(cumulativeSectionsDeployed - 1), (float)i, whiteCutoff)
+                == 1) {
                 printf("Face is added \n");
             }
         }
@@ -35,7 +33,8 @@ void test_noise_gen() {
 
     while (counter < extraReps) {
         for (int i = 0; i < 16; i++) {
-            if (evaluate_white_cutoff((float)(cumulativeSectionsDeployed - 1), (float)i, whiteCutoff) == 1) {
+            if (evaluate_white_cutoff((float)(cumulativeSectionsDeployed - 1), (float)i, whiteCutoff)
+                == 1) {
                 printf("Face is added \n");
             }
         }
