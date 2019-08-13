@@ -86,7 +86,8 @@ namespace TestProgram {
         void update();
 
         // may have to do this? idk, dodgy
-        // maybe it's only virtual if the enclosing superclass only has to be able to have it overriden
+        // maybe it's only virtual if the enclosing superclass only has to be able to have it
+        // overriden
         virtual void base_thing();
     };
 
@@ -111,6 +112,11 @@ namespace TestProgram {
          * member variables */
         MemberInitListClass(int randomNum, int randomBool, DumbClass& dumbClassRef) :
           randomNo(randomNum), randomBool(randomBool), dumbClassRef(dumbClassRef) {}
+
+        // const-suffixed function - means function cannot change member variable of its class
+        DumbClass& view_dumb_class_ref() const {
+            return dumbClassRef;
+        }
     };
 }
 
