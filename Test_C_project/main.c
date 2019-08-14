@@ -47,6 +47,34 @@ void test_noise_gen() {
     delete_fucking_everything();
 }
 
+void test_noise_gen_trace_table() {
+	printf("Started noise gen \n");
+	
+	static_construct();
+	setup_noise_lots((long)(80117114112108101.0F * ((double)rand() / (double)RAND_MAX)), 1, 20, 0.45F,
+      1);
+	  
+	float x;
+	float y;
+	int shouldContinue;
+	
+	do {
+		printf("Input x: ");
+		scanf("%f", &x);
+		printf("Input y: ");
+		scanf("%f", &y);
+		
+		// call actual function
+		evaluateWithAllValuesWrittenToConsole(x, y);
+		
+		printf("Continue for another iteration? Write 1 for yes and 0 for no. \n"); 
+		scanf("%d", &shouldContinue);
+	} while (shouldContinue == 1);
+	  
+	printf("Process complete. \n");
+    delete_fucking_everything();
+}
+
 int main() {
     int a = 3;
     int b = 4;
@@ -56,8 +84,11 @@ int main() {
     printf("Hello, world!\n");
 
     printf("%d \n", c);
+	
+	test_noise_gen_trace_table();
 
-    test_noise_gen();
+	// TODO: turn back on later
+    //test_noise_gen();
 
     return 0;
 }
