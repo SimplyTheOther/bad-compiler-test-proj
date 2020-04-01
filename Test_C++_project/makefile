@@ -1,7 +1,7 @@
 objects = main.o functions.o stupidclasses.o
-CXXFLAGS = -O0 -g -Wall -Werror
+CXXFLAGS = -O3 -g -Wall 
 #LDFLAGS = 
-CXX = g++
+CXX = g++-9
 
 test: $(objects)
 	$(CXX) -o test $(objects) $(LDFLAGS)

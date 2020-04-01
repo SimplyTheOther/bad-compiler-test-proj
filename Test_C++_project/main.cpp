@@ -92,12 +92,19 @@ void oop_tests() {
     delete altClass;
 }
 
+void benchmark_stuff() {
+    TestProgram::UnorderedStuffClass stuff;
+    stuff.benchmark_all();
+}
+
 int main() {
-    stupid_math_tests();
+    benchmark_stuff();
 
-    test_bitwise_ops();
+    //stupid_math_tests();
 
-    oop_tests();
+    //test_bitwise_ops();
+
+    //oop_tests();
 
     return 0;
 }
