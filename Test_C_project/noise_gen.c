@@ -393,3 +393,75 @@ void delete_fucking_everything() {
         temp = NULL;
     }
 }
+
+float evaluateWithAllValuesWrittenToConsole(float x, float y) {
+    printf("New Evaluate call started \n");
+
+    float stretchOffset = (x + y) * STRETCH_2D;
+    float xs = x + stretchOffset;
+    float ys = y + stretchOffset;
+	printf("stretchOffset: %f, xs: %f, ys: %f \n", stretchOffset, xs, ys);
+
+    int xsb = fast_floor_f(xs);
+    int ysb = fast_floor_f(ys);
+	printf("xsb: %d, ysb: %d", xsb, ysb);
+
+    float squishOffset = (xsb + ysb) * SQUISH_2D;
+    float dx0 = x - (xsb + squishOffset);
+    float dy0 = y - (ysb + squishOffset);
+	printf("squishOffset: %f, dx0: %f, dy0: %f \n", squishOffset, dx0, dy0);
+
+    float xins = xs - xsb;
+    float yins = ys - ysb;
+	printf("xins: %f, yins: %f \n", xins, yins);
+
+    float inSum = xins + yins;
+	printf("inSum: %f \n", inSum);
+
+    int hash = (int)(xins - yins + 1) | (int)(inSum) << 1 | (int)(inSum + yins) << 2
+               | (int)(inSum + xins) << 4;
+	printf("hash: %d \n", hash);
+
+    int lookup2DLength = sizeof(lookup2D) / sizeof(struct Contribution2*);
+    printf("hash: %d, bounds: %d \n", hash, lookup2DLength);
+
+    struct Contribution2* c = lookup2D[hash];
+
+    float value = 0.0F;
+	printf("value: %f \n", value);
+
+    while (c != NULL) {
+        printf("Running loop body (start of it) \n");
+
+        float dx = dx0 + c->dx;
+        float dy = dy0 + c->dy;
+        float attn = 2 - dx * dx - dy * dy;
+		printf("dx: %f, dy: %f, attn: %f \n", dx, dy, attn);
+
+        printf("All dx, dy, attn are ok \n");
+
+        if (attn > 0) {
+            printf("attn > 0 \n");
+            int px = xsb + c->xsb;
+            int py = ysb + c->ysb;
+			printf("px: %d, py: %d \n", px, py);
+
+            uint8_t i = perm2D[(perm[px & 0xFF] + py) & 0xFF];
+            float valuePart = gradients2D[i] * dx + gradients2D[i + 1] * dy;
+			
+			printf("i: %u, valuePart: %f \n", i, valuePart);
+			// maybe actually:
+			//printf("i: %hhu, valuePart: %f \n", i, valuePart);
+
+            attn *= attn;
+            value += attn * attn * valuePart;
+			
+			printf("attn: %f, value: %f \n", attn, value);
+        }
+
+        c = c->next;
+    }
+
+	printf("final result: %f \n", value * NORM_2D);
+    return value * NORM_2D;
+}

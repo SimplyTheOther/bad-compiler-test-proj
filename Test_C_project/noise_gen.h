@@ -53,4 +53,6 @@ void debug_check_all_next_chains(void);
 
 void init_array_to_null(struct Contribution2* array[], int length);
 
+float evaluateWithAllValuesWrittenToConsole(float x, float y);
+
 #endif
