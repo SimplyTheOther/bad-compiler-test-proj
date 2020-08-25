@@ -349,6 +349,16 @@ namespace TestProgram {
             return mean;
         }
     };
+
+    class HoldFunctionToPassToClass {
+      private:
+        int some_random_state;
+
+        template<typename T> int method_with_function_param(int random_param, T function_param, std::string random_param_2, int random_param_3);
+
+      public:
+        void some_public_method_to_call(int value, int other_value);
+    };
 }
 
 #endif

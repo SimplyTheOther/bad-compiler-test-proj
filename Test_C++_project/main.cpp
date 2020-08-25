@@ -97,8 +97,15 @@ void benchmark_stuff() {
     stuff.benchmark_all();
 }
 
+void test_function_template_passing() {
+    TestProgram::HoldFunctionToPassToClass stuff;
+    stuff.some_public_method_to_call(22, 33);
+}
+
 int main() {
-    benchmark_stuff();
+    test_function_template_passing();
+
+    //benchmark_stuff();
 
     //stupid_math_tests();
 
